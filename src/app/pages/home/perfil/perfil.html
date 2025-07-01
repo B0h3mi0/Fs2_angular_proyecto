@@ -1,0 +1,49 @@
+<div class="row align-items-center justify-content-center">
+        
+    <!-- Carrusel / Imagen fija -->
+    <div class="col-12 col-md-6 mb-4 mb-md-0">
+        <div class="carrusel-contenedor">
+        <img src="images/user.png" class="d-block w-100 carrusel-imagen" alt="Perfil de usuario" />
+        </div>
+    </div>
+
+    <!-- Formulario de edición de perfil -->
+    <div class="formulario col-12 col-md-6">
+        <h2 class="mb-4 text-success">Mi Cuenta</h2>
+        <p class="mb-3">Modifica tu información personal:</p>
+        <form action="/perfil" method="POST">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre completo:</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" value="Sebastián" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico:</label>
+            <input type="email" id="email" name="email" class="form-control" value="sebastian@email.com" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" class="form-control" value="+56 9 1234 5678" />
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Nueva contraseña:</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Dejar en blanco para no cambiarla" />
+        </div>
+
+        <div class="mb-3">
+            <label for="confirm-password" class="form-label">Confirmar nueva contraseña:</label>
+            <input type="password" id="confirm-password" name="confirm-password" class="form-control" />
+        </div>
+
+        <div id="errores" class="text-danger mb-3"></div>
+
+        <button type="submit" class="btn btn-success w-100">Guardar cambios</button>
+        </form>
+
+        <div class="mt-3 text-center">
+        <a  class="text-danger text-decoration-none">Cerrar sesión</a>
+        </div>
+    </div>
+</div>

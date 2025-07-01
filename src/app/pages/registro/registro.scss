@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+
+:root{
+    --clr-blue:#05668D;
+    --clr-ligth_blue:#427AA1;
+    --clr-white:#EBF2FA;
+    --clr-green:#679436;
+    --clr-ligth_green:#A5BE00;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6,p,a,input,textarea,ul{
+    margin: 0;
+    padding: 0;
+}
+
+
+/** 
+Regitro
+**/
+
+/* Carrusel mejora responsiva */
+.carrusel-contenedor {
+    height: 400px;
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.carrusel-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Adaptar altura en móviles */
+@media (max-width: 768px) {
+.carrusel-contenedor {
+    height: 250px;
+}
+
+.formulario {
+    padding: 1rem;
+}
+}
+.formulario {
+    background-color: var(--clr-white);
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.formulario form label {
+    font-weight: 500;
+    color: var(--clr-blue);
+    margin-bottom: 0.25rem;
+}
+
+.formulario input[type="text"],
+.formulario input[type="email"],
+.formulario input[type="password"],
+.formulario input[type="tel"],
+.formulario input[type="date"] {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 2px solid var(--clr-ligth_blue);
+    width: 100%;
+    transition: border-color 0.3s;
+}
+
+.formulario input:focus {
+    outline: none;
+    border-color: var(--clr-green);
+}
+
+.formulario button[type="submit"] {
+    padding: 0.75rem;
+    border-radius: 2rem;
+    border: none;
+    background-color: var(--clr-green);
+    color: var(--clr-white);
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.formulario button:hover {
+    background-color: var(--clr-blue);
+}
+
+.formulario input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.btn-success {
+    background-color: var(--clr-green);
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: var(--clr-ligth_green);
+    color: var(--clr-white);
+}
+
+.input-bottom-align {
+  padding-top: 3rem; /* Ajusta según el tamaño del label flotante */
+}

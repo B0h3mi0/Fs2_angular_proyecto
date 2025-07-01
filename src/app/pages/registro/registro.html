@@ -1,0 +1,98 @@
+<div class="container-full py-4 d-flex justify-content-center">
+    <div class="row align-items-top justify-content-center">
+        <!-- Carrusel -->
+        <div class="col-12 col-md-6 mb-4 mb-md-0">
+            <div id="carouselExample" class="carousel slide carrusel-contenedor" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="images/registro.jpg" class="d-block  carrusel-imagen" alt="...">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario -->
+        <div class="formulario col-12 col-md-6">
+
+            <h2 class="mb-4 text-success">Registrarse</h2>
+            <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" class="col-4 text-center w-100  needs-validation" novalidate>
+
+                <div class="form-group form-floating  mb-3">
+                    <input class="form-control " type="text" id="name" formControlName="name" placeholder="Introduce tu nombre completo" required
+                            [ngClass]="{ 'is-invalid': submitted && registroForm.controls['name'].errors, 
+                                        'is-valid': submitted && registroForm.controls['name'].valid }">
+                    <label for="name">Nombre completo:</label>
+                    <div *ngIf="submitted && registroForm.controls['name'].errors " class="invalid-feedback" >Por favor, introduce tu nombre completo</div>
+                </div>
+
+                <div class="form-group form-floating mb-3">
+                    <input class="form-control" type="email" id="email" formControlName="email" placeholder="Introduce tu Correo electronico : 'user@gmail.com' " required
+                    [ngClass]="{ 'is-invalid': submitted && registroForm.controls['email'].errors, 
+                                        'is-valid': submitted && registroForm.controls['email'].valid }">
+                    <label for="email">Correo electrónico:</label>
+                    <div *ngIf="submitted && registroForm.controls['email'].errors " class="invalid-feedback" >Por favor, introduce un email valido</div>
+                </div>
+
+                <div class="form-group form-floating mb-3">
+                    <input class="form-control" type="text" id="username" formControlName="username" placeholder="Introduce tu nombre de usuario" required
+                    [ngClass]="{ 'is-invalid': submitted && registroForm.controls['username'].errors, 
+                                        'is-valid': submitted && registroForm.controls['username'].valid }">
+                    <label for="username">Nombre de usuario:</label>
+                    <div *ngIf="submitted && registroForm.controls['username'].errors " class="invalid-feedback" >Por favor, introduce un nombre valido</div>
+                </div>
+
+                <div class="form-group form-floating mb-3">
+                    <input class="form-control" type="tel" id="phone" formControlName="phone" placeholder="Introduce tu numero de telefono" 
+                    [ngClass]="{ 'is-invalid': submitted && registroForm.controls['phone'].errors, 
+                                        'is-valid': submitted && registroForm.controls['phone'].valid }">
+                    <label for="phone">Teléfono (opcional):</label>
+                    <div *ngIf="submitted && registroForm.controls['phone'].errors " class="invalid-feedback" >Por favor, introduce un numero valido</div>
+                </div>
+
+                <div class="form-group  mb-3">
+                    <input class="form-control" type="date" id="date" formControlName="birthdate" placeholder="Introduce tu fecha de nacimiento" 
+                    [ngClass]="{ 'is-invalid': submitted && registroForm.controls['birthdate'].errors, 
+                                        'is-valid': submitted && registroForm.controls['birthdate'].valid }">
+                    <label for="date">Fecha de nacimiento (opcional):</label>
+                    <div *ngIf="submitted && registroForm.controls['birthdate'].errors " class="invalid-feedback" >Por favor, introduce una fecha valida</div>
+                </div>
+
+                <div class="form-group mb-3 position-relative">
+                    <input class="form-control" type="password" id="pwd" formControlName="password" placeholder="Introduce tu contraseña" required
+                    [ngClass]="{ 'is-invalid': submitted && registroForm.controls['password'].errors, 
+                                        'is-valid': submitted && registroForm.controls['password'].valid }">
+                    <label for="pwd">Contraseña:</label>
+                    <div *ngIf="submitted && registroForm.controls['password'].errors" class="invalid-feedback">
+                        La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.</div>
+                </div>
+
+                <div class="form-group mb-3 position-relative">
+                    <input class="form-control" type="password" id="repeat-pwd" formControlName="repeatPassword" placeholder="Repite nuevamente tu contraseña" required
+                    [ngClass]="{ 'is-invalid': submitted && registroForm.controls['repeatPassword'].errors, 
+                                        'is-valid': submitted && registroForm.controls['repeatPassword'].valid }">
+                    <label for="repeat-pwd">Confirmar contraseña:</label>
+                    <div *ngIf="submitted && registroForm.controls['repeatPassword'].errors " class="invalid-feedback" >Las contraseñas no coinciden</div>
+                </div>
+
+
+                <div class="form-group form-floating mb-3">
+                    <label>
+                        <input type="checkbox" name="terminos" required>
+                        Acepto los términos y condiciones
+                    </label>
+                </div>
+
+                <div id="errores" class="text-danger mb-3"></div>
+                <br>
+                <br>
+                <br>
+
+                <button type="submit" >Registrarse</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+

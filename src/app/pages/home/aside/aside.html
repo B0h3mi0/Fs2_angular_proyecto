@@ -1,0 +1,72 @@
+<aside >
+    <header>
+        <h1 class="logo">Ludoteca</h1>
+    </header>
+    <nav>
+        <ul class="menu">
+            <li>
+                <a  class="boton-menu link-menu"
+                    routerLink="/home/productos"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact : true }">
+                    <i class="bi bi-caret-right-fill"></i>Todos los productos
+                </a>
+            </li>
+            <li>
+                <div>
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="boton-menu" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="bi bi-caret-right"></i>Categoria
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <ul class="alineacion">
+                                <li>
+                                    <button class="boton-menu boton-categoria"><i class="bi bi-caret-right"></i>Juegos de Rol</button>
+                                </li>
+                                <li>
+                                    <button class="boton-menu boton-categoria"><i class="bi bi-caret-right"></i>Juegos Solitario</button>
+                                </li>
+                                <li>
+                                    <button class="boton-menu boton-categoria"><i class="bi bi-caret-right"></i>Juegos de Estrategia</button>
+                                </li>
+                                <li>
+                                    <button class="boton-menu boton-categoria"><i class="bi bi-caret-right"></i>Juegos Familiares</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a class="boton-menu link-menu" 
+                    routerLink="/home/perfil"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact : true }">
+                        <i class="bi bi-person-raised-hand"></i> Mi cuenta
+                </a>
+            </li>
+            <li>
+                <a class="boton-menu boton-carrito link-menu" 
+                    routerLink="/home/carrito"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact : true }">
+                    <i class="bi bi-cart4"></i> Carrito 
+                    <span class="cant">
+                        0
+                    </span>
+                </a>
+                
+            </li>
+            <li>
+                <a class="boton-menu link-menu" routerLink="/registro">¿No estas registrado?<br>Registrate aqui</a>
+                
+            </li>
+        </ul>
+
+    </nav>
+    <footer>
+        <p class="texto-footer">© 2025 Ludoteca - derechos reservados </p>
+    </footer>
+</aside>
