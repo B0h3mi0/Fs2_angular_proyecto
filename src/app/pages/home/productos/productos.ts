@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Producto } from '../../../models/producto.models';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [],
+  imports: [ CommonModule],
   templateUrl: './productos.html',
   styleUrl: './productos.scss'
 })
@@ -15,6 +18,16 @@ import { Component } from '@angular/core';
  * @param name Nombre del producto
  * @param precio valor del producto
  */
-export class Productos {
+export class Productos implements OnInit{
+
+  producto: Producto[] = [];
+
+  constructor( private http: HttpClient ) {}
+
+  ngOnInit(): void{
+    this.http.get<Producto[]>('https://b0h3mi0.github.io/Json_pruebas_fs2/productos.json').subscribe(data =>{
+      this.producto = data;
+    });
+  }
 
 }
