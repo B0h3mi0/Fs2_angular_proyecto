@@ -150,9 +150,6 @@
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
                                 <code><a href="../components/Aside.html" target="_self" >Aside</a></code>
-                                <code><a href="../components/Productos.html" target="_self" >Productos</a></code>
-                                <code><a href="../components/Carrito.html" target="_self" >Carrito</a></code>
-                                <code><a href="../components/Perfil.html" target="_self" >Perfil</a></code>
                             <code>RouterOutlet</code>
                 </td>
             </tr>
@@ -194,14 +191,11 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 import { Aside } from &#x27;./aside/aside&#x27;;
-import { Productos } from &#x27;./productos/productos&#x27;;
 import {  Router, RouterOutlet } from &#x27;@angular/router&#x27;;
-import { Carrito } from &#x27;./carrito/carrito&#x27;;
-import { Perfil } from &#x27;./perfil/perfil&#x27;;
 
 @Component({
   selector: &#x27;app-home&#x27;,
-  imports: [Aside, Productos, Carrito, Perfil, RouterOutlet],
+  imports: [Aside, RouterOutlet],
   templateUrl: &#x27;./home.html&#x27;,
   styleUrl: &#x27;./home.scss&#x27;
 })
@@ -215,9 +209,7 @@ export class Home {
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container-custom&quot;&gt;
     &lt;app-aside&gt;&lt;/app-aside&gt;
     &lt;div class&#x3D;&quot;contenedor-main&quot;&gt;
-        &lt;div class&#x3D;&quot;contendor-productos&quot;&gt;
             &lt;router-outlet&gt;&lt;/router-outlet&gt;
-        &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
@@ -249,7 +241,7 @@ export class Home {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container-custom">    <app-aside></app-aside>    <div class="contenedor-main">        <div class="contendor-productos">            <router-outlet></router-outlet>        </div>    </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="container-custom">    <app-aside></app-aside>    <div class="contenedor-main">            <router-outlet></router-outlet>    </div></div></div>'
     var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'Aside', 'selector': 'app-aside'},{'name': 'Carrito', 'selector': 'app-carrito'},{'name': 'Home', 'selector': 'app-home'},{'name': 'LoginForm', 'selector': 'app-login-form'},{'name': 'Main', 'selector': 'app-main'},{'name': 'Perfil', 'selector': 'app-perfil'},{'name': 'Productos', 'selector': 'app-productos'},{'name': 'RecuperaPass', 'selector': 'app-recupera-pass'},{'name': 'Registro', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'Home'};
