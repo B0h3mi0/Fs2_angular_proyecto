@@ -29,23 +29,26 @@ export class LoginForm implements OnInit{
 
   constructor(private fb: FormBuilder, private router: Router, private el: ElementRef){
 
-    if(typeof localStorage !== 'undefined') {
-      const usuariosGuardados = localStorage.getItem('usuarios');
-      this.usuarios = usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
-    }
   }
     ngOnInit() {
       this.loginForm = this.fb.group({
         emailOrUsername: ['',Validators.required],
         password: ['',Validators.required]
       });
+
+       // Solo se ejecuta en el navegador (no en SSR)
+      if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+        const usuariosGuardados = localStorage.getItem('usuarios');
+        this.usuarios = usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
+      }
+
     } 
 
     iniciarSesion(emailOrUsername: string, password: string): boolean{
       const usuario = this.usuarios.find(user=>(user.email=== emailOrUsername || user.username === emailOrUsername) && user.password === password);
       if(usuario) {
         this.showToast('Inicio de sesion exitoso' , 'success')
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home/productos']);
         return true;
       }
       else {

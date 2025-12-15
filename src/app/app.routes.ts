@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { Productos } from './pages/home/productos/productos';
+import { Laboratorios } from './pages/home/laboratorios/laboratorios';
 import { Perfil } from './pages/home/perfil/perfil';
 import { NgModule } from '@angular/core';
 import { Carrito } from './pages/home/carrito/carrito';
@@ -16,8 +16,8 @@ export const routes: Routes = [
         path: 'home', 
         component: Home,
         children:[
-            { path: '', redirectTo: 'productos', pathMatch: 'full' },
-            { path: 'productos', component: Productos },
+            { path: '', redirectTo: 'Laboratorios', pathMatch: 'full' },
+            { path: 'productos', component: Laboratorios },
             { path: 'carrito', component: Carrito  },
             { path: 'perfil', component: Perfil }
         ] 

@@ -1,36 +1,64 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { RecuperaPass } from './recupera-pass';
-import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe('RecuperaPass', () => {
+describe('RecuperaPass Component', () => {
   let component: RecuperaPass;
-  let fixture: ComponentFixture<RecuperaPass>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RecuperaPass],
-      providers: [
-      {
-        provide: ActivatedRoute,
-        useValue: {
-          snapshot: {
-            paramMap: {
-              get: (key: string) => 'valor-ficticio' // simula obtener un parámetro de la ruta
-            }
-          }
-        }
-      }
+      imports: [
+        RecuperaPass,
+        RouterTestingModule
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(RecuperaPass);
+    const fixture = TestBed.createComponent(RecuperaPass);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the RecuperaPass component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show error alert when form is invalid', () => {
+    const swalSpy = spyOn(Swal, 'fire');
+
+    const fakeForm = {
+      invalid: true,
+      value: {
+        email: ''
+      }
+    };
+
+    component.enviarCorreo(fakeForm);
+
+    expect(swalSpy).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        icon: 'error',
+        title: 'Correo inválido'
+      }) as any
+    );
+  });
+
+  it('should show success alert when form is valid', () => {
+    const swalSpy = spyOn(Swal, 'fire');
+
+    const fakeForm = {
+      invalid: false,
+      value: {
+        email: 'test@test.com'
+      }
+    };
+
+    component.enviarCorreo(fakeForm);
+
+    expect(swalSpy).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        icon: 'success',
+        title: 'Correo enviado'
+      }) as any
+    );
   });
 });

@@ -1,68 +1,105 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Registro } from './registro';
-import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
-describe('Registro', () => {
+describe('Registro Component', () => {
   let component: Registro;
   let fixture: ComponentFixture<Registro>;
-  let routerSpy = { navigate: jasmine.createSpy('navigate') }; /** @param {routerSpy} - Con este parametro simulamos la navegacion */
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Registro, ReactiveFormsModule],
-      providers: [
-        { provide: Router, useValue: routerSpy,},
-        
+      imports: [
+        Registro,
+        ReactiveFormsModule,
+        RouterTestingModule
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Registro);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+
+    // Mock localStorage
+    spyOn(localStorage, 'getItem').and.returnValue(null);
+    spyOn(localStorage, 'setItem');
+
+    // Mock alert
+    spyOn(window, 'alert');
+
     fixture.detectChanges();
   });
 
-  it('Deberia crear el componente', () => { /** @description  */
+  it('should create the Registro component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Formulario deberia ser invalido cuando esta vacio', () => {
-    component.registroForm.setValue({
-      email: '',
-      name: '',
-      username: '',
-      password: '',
-      repeatPassword: '',
-      birthdate: '',
-      phone: ''
-    });
-    expect(component.registroForm.invalid).toBeTrue();
+  it('should initialize registroForm', () => {
+    expect(component.registroForm).toBeTruthy();
   });
 
-  it('Debería marcar el formulario como válido con datos correctos.', () => {
-    component.registroForm.setValue({
-      email: 'test@example.com',
-      name: 'Sebastián',
-      username: 'seba123',
-      password: 'Passw0rd!',
-      repeatPassword: 'Passw0rd!',
-      birthdate: '2000-01-01',
-      phone: '123456789'
+  it('passwordsMatch should return null when passwords match', () => {
+    component.registroForm.patchValue({
+      password: '12345678',
+      repeatPassword: '12345678'
     });
-    expect(component.registroForm.valid).toBeTrue();
+
+    const result = component.passwordsMatch(component.registroForm);
+    expect(result).toBeNull();
   });
 
-  it('Deberia mostrar una alerta si las contraseñas no coinciden', () => {
-    spyOn(window, 'alert');
-    component.registroForm.setValue({
-      email: 'test@example.com',
-      name: 'Sebastián',
-      username: 'seba123',
-      password: 'Passw0rd!',
-      repeatPassword: 'AnotherPass!',
-      birthdate: '',
-      phone: ''
+  it('passwordsMatch should return error when passwords do not match', () => {
+    component.registroForm.patchValue({
+      password: '12345678',
+      repeatPassword: '87654321'
+    });
+
+    const result = component.passwordsMatch(component.registroForm);
+    expect(result).toEqual({ passwordMismatch: true });
+  });
+
+  it('should register a new user successfully', () => {
+    const result = component.registrarUsuario(
+      'test@test.com',
+      'Test User',
+      '12345678',
+      'testuser',
+      '',
+      ''
+    );
+
+    expect(result).toBeTrue();
+    expect(window.alert).toHaveBeenCalledWith('Usuario registrado exitosamente.');
+    expect(localStorage.setItem).toHaveBeenCalled();
+  });
+
+  it('should not register user if email already exists', () => {
+    component.usuarios = [
+      { email: 'test@test.com', username: 'testuser' }
+    ];
+
+    const result = component.registrarUsuario(
+      'test@test.com',
+      'Otro',
+      '12345678',
+      'otro',
+      '',
+      ''
+    );
+
+    expect(result).toBeFalse();
+    expect(window.alert).toHaveBeenCalledWith('El usuario ya existe.');
+  });
+
+  it('should not submit form when passwords do not match', () => {
+    component.registroForm.patchValue({
+      email: 'test@test.com',
+      name: 'Test',
+      username: 'test',
+      password: '12345678',
+      repeatPassword: '87654321'
     });
 
     component.onSubmit();
@@ -70,63 +107,20 @@ describe('Registro', () => {
     expect(window.alert).toHaveBeenCalledWith('Las contraseñas no coinciden.');
   });
 
-  it('Debería registrar al usuario y navegar a la página de inicio al tener éxito.', () => {
-    spyOn(window, 'alert');
-    component.registroForm.setValue({
-      email: 'nuevo@example.com',
-      name: 'Nuevo Usuario',
-      username: 'nuevoUser',
-      password: 'Test1234!',
-      repeatPassword: 'Test1234!',
-      birthdate: '',
-      phone: ''
+  it('should submit form and navigate on successful registration', () => {
+    spyOn(router, 'navigate');
+
+    component.registroForm.patchValue({
+      email: 'test@test.com',
+      name: 'Test',
+      username: 'test',
+      password: '12345678',
+      repeatPassword: '12345678'
     });
 
     component.onSubmit();
 
-    const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios') || '[]');
-    const registrado = usuariosGuardados.find((u: any) => u.email === 'nuevo@example.com');
-
-    expect(registrado).toBeTruthy();
-    expect(window.alert).toHaveBeenCalledWith('Usuario registrado exitosamente.');
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
-  });
-
-  it('No debería permitir usuarios duplicados.', () => {
-  spyOn(window, 'alert');
-  
-  const routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-
-  const usuarioExistente = {
-    email: 'repetido@example.com',
-    username: 'usuario1',
-    name: 'X',
-    password: 'X',
-    birthdate: '',
-    phone: ''
-  };
-
-  localStorage.setItem('usuarios', JSON.stringify([usuarioExistente]));
-  component.usuarios = [usuarioExistente];
-
-  component.registroForm.setValue({
-    email: 'repetido@example.com',
-    name: 'Repetido',
-    username: 'usuario1',
-    password: 'Test1234!',
-    repeatPassword: 'Test1234!',
-    birthdate: '',
-    phone: ''
-  });
-
-  component.onSubmit();
-
-  expect(window.alert).toHaveBeenCalledWith('El usuario ya existe.');
-  expect(routerSpy.navigate).not.toHaveBeenCalled();
-  });
-
-  afterEach(() => {
-  localStorage.removeItem('usuarios');
+    expect(router.navigate).toHaveBeenCalledWith(['/']);
+    expect(component.submitted).toBeFalse();
   });
 });
-

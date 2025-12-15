@@ -1,23 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { Perfil } from './perfil';
 
-describe('Perfil', () => {
+describe('Perfil Component', () => {
   let component: Perfil;
-  let fixture: ComponentFixture<Perfil>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Perfil]
-    })
-    .compileComponents();
+      imports: [Perfil] // 👈 standalone component
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(Perfil);
+    const fixture = TestBed.createComponent(Perfil);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the Perfil component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should be an instance of Perfil', () => {
+    expect(component instanceof Perfil).toBeTrue();
   });
 });

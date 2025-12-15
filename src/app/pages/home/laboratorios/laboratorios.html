@@ -1,0 +1,27 @@
+<div class="container mt-4">
+
+    <h2 class="titulo-principal mb-4">Listado de Laboratorios</h2>
+
+    <table class="table table-hover text-center align-middle tabla-labs">
+        <thead class="table-success">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Tipo de Análisis</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let lab of laboratorios">
+            <td>{{ lab.id }}</td>
+            <td>{{ lab.nombre }}</td>
+            <td>{{ lab.direccion }}</td>
+            <td>{{ lab.telefono }}</td>
+            <td>{{ lab.tipoAnalisis }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

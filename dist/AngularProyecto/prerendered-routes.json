@@ -1,0 +1,12 @@
+{
+  "routes": {
+    "/": {},
+    "/home": {},
+    "/home/carrito": {},
+    "/home/perfil": {},
+    "/home/productos": {},
+    "/main": {},
+    "/recupera-pass": {},
+    "/registro": {}
+  }
+}

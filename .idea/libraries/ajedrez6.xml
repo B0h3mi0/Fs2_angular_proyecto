@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ajedrez6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/AngularProyecto/browser/images/ajedrez.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

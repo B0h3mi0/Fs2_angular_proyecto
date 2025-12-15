@@ -10,9 +10,9 @@ RUN npm install
 
 EXPOSE 4200
 # ng serve está pensado solo para desarrollo, y no para servir la app compilada
-    # Mantiene la app "viva", viendo cambios (hot reload, etc.)
-    # Es lento comparado con un server real como Nginx
-    # No es óptimo para despliegue real (uso de CPU, memoria, etc.)
+# Mantiene la app "viva", viendo cambios (hot reload, etc.)
+# Es lento comparado con un server real como Nginx
+# No es óptimo para despliegue real (uso de CPU, memoria, etc.)
 CMD [ "ng", "serve", "--host", "0.0.0.0" ] 
 
 # OJO : Paso a paso para ejecutar el contenedor Web tipo Nginx

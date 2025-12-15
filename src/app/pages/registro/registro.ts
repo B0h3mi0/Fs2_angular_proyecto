@@ -25,7 +25,18 @@ export class Registro  implements OnInit{
   usuarios: any[] = [];
   submitted = false;
   
-  
+  private isBrowser(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.localStorage !== 'undefined' &&
+    typeof window.localStorage.getItem === 'function'
+  );
+}
+  passwordsMatch(form: FormGroup) {
+  const pass = form.get('password')?.value;
+  const rep = form.get('repeatPassword')?.value;
+  return pass === rep ? null : { passwordMismatch: true };
+}
 
   constructor(private fb: FormBuilder, private router: Router ) {
     this.registroForm = this.fb.group({
@@ -36,15 +47,17 @@ export class Registro  implements OnInit{
       repeatPassword: ['', Validators.required],
       birthdate: [''],
       phone: [''],
-    });
-
-    if (typeof localStorage !== 'undefined') {
-      const usuariosGuardados = localStorage.getItem('usuarios');
-      this.usuarios= usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
-    }
+  }, {
+  validators: this.passwordsMatch
+});
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  if (this.isBrowser()) {
+    const usuariosGuardados = localStorage.getItem('usuarios');
+    this.usuarios = usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
+  }
+}
 
 
   // METODO DE REGISTRO DE USUARIOS CON LOCALSTORAGE/////////////////////////////////
@@ -61,38 +74,69 @@ export class Registro  implements OnInit{
  * @returns `true` si el usuario fue registrado con éxito, `false` si ya existía.
  */
 
-  registrarUsuario(email: string, name: string, password: string, username: string, birthdate: string, phone: string): boolean {
-    const usuarioExistente = this.usuarios.find(usuario => usuario.email === email || usuario.username === username);
-    if (usuarioExistente) {
-      alert('El usuario ya existe.');
-      return false;
-    }
 
-    const nuevoUsuario = { email, name, password, username, birthdate, phone};
-    this.usuarios.push(nuevoUsuario);
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
-    }
-    alert('Usuario registrado exitosamente.');
-    return true;
+
+  registrarUsuario(
+      email: string, 
+      name: string, 
+      password: string, 
+      username: string, 
+      birthdate: string, 
+      phone: string
+    ): boolean {
+
+      const usuarioExistente = this.usuarios.find(
+        usuario => usuario.email === email || usuario.username === username
+      );
+
+      if (usuarioExistente) {
+        alert('El usuario ya existe.');
+        return false;
+      }
+
+      const nuevoUsuario = { email, name, password, username, birthdate, phone };
+      this.usuarios.push(nuevoUsuario);
+
+      if (this.isBrowser()) {
+        localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
+      }
+
+      alert('Usuario registrado exitosamente.');
+      return true;
   }
 
   onSubmit(): void {
-    this.submitted = true;
-    if (this.registroForm.valid) {
-      const { email, name, password, repeatPassword, username, birthdate, phone } = this.registroForm.value;
-      if (password !== repeatPassword) {
-        alert('Las contraseñas no coinciden.');
-        return;
-      }
-      const registroExitoso = this.registrarUsuario(email, name, password, username, birthdate, phone);
-      if (registroExitoso) {
-        this.registroForm.reset();
-        this.router.navigate(['/']);
-        this.submitted = false;
-      }
-    }
+  this.submitted = true;
+
+  const { password, repeatPassword } = this.registroForm.value;
+
+  // 🔑 Validación explícita ANTES del valid
+  if (password !== repeatPassword) {
+    alert('Las contraseñas no coinciden.');
+    return;
   }
+
+  if (this.registroForm.invalid) {
+    return;
+  }
+
+  const { email, name, username, birthdate, phone } = this.registroForm.value;
+
+  const registroExitoso = this.registrarUsuario(
+    email,
+    name,
+    password,
+    username,
+    birthdate,
+    phone
+  );
+
+  if (registroExitoso) {
+    this.registroForm.reset();
+    this.router.navigate(['/']);
+    this.submitted = false;
+  }
+}
 
 
 }

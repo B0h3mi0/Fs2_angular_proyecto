@@ -1,36 +1,28 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Aside } from './aside';
-import { ActivatedRoute } from '@angular/router';
 
-describe('Aside', () => {
+describe('Aside Component', () => {
   let component: Aside;
-  let fixture: ComponentFixture<Aside>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Aside],
-      providers: [
-      {
-        provide: ActivatedRoute,
-        useValue: {
-          snapshot: {
-            paramMap: {
-              get: (key: string) => 'valor-ficticio' // simula obtener un parámetro de la ruta
-            }
-          }
-        }
-      }
+      imports: [
+        Aside,               
+        RouterTestingModule  
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(Aside);
+    const fixture = TestBed.createComponent(Aside);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the Aside component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should be instance of Aside', () => {
+    expect(component instanceof Aside).toBeTrue();
   });
 });

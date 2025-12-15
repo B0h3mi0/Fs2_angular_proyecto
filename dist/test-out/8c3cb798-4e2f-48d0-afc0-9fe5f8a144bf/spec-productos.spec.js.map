@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/home/productos/productos.spec.ts"],
+  "sourcesContent": ["import { ComponentFixture, TestBed } from '@angular/core/testing';\r\n\r\nimport { Productos } from './productos';\r\n\r\ndescribe('Productos', () => {\r\n  let component: Productos;\r\n  let fixture: ComponentFixture<Productos>;\r\n\r\n  beforeEach(async () => {\r\n    await TestBed.configureTestingModule({\r\n      imports: [Productos]\r\n    })\r\n    .compileComponents();\r\n\r\n    fixture = TestBed.createComponent(Productos);\r\n    component = fixture.componentInstance;\r\n    fixture.detectChanges();\r\n  });\r\n\r\n  it('should create', () => {\r\n    expect(component).toBeTruthy();\r\n  });\r\n});\r\n"],
+  "mappings": ";;;;;;;;;;;;;;AAAA;;;AAEA;AAEA,aAAS,aAAa,MAAK;AACzB,UAAI;AACJ,UAAI;AAEJ,iBAAW,MAAW;AACpB,cAAM,QAAQ,uBAAuB;UACnC,SAAS,CAAC,SAAS;SACpB,EACA,kBAAiB;AAElB,kBAAU,QAAQ,gBAAgB,SAAS;AAC3C,oBAAY,QAAQ;AACpB,gBAAQ,cAAa;MACvB,EAAC;AAED,SAAG,iBAAiB,MAAK;AACvB,eAAO,SAAS,EAAE,WAAU;MAC9B,CAAC;IACH,CAAC;;;",
+  "names": []
+}
